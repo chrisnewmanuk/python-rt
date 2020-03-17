@@ -638,7 +638,9 @@ class Rt:
         kwargs['id'] = 'ticket/new'
         kwargs['Queue'] = Queue or self.default_queue
         post_data = self.__ticket_post_data(kwargs)
-        post_data += "\nContent-Type: text/html"
+        if (kwargs['ContentType']):
+            post_data += "\nContent-Type: " + kwargs['ContentType'];
+            kwargs.remove('ContentType');
 
         if files:
             for file_info in files:
